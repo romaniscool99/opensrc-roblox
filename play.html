@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verifying...</title>
+  <meta http-equiv="refresh" content="4;url=game.html">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    img {
+      max-width: 80%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .loading-text {
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+    }
+
+    .dots::after {
+      content: '';
+      animation: dots 1s steps(4, end) infinite;
+    }
+
+    @keyframes dots {
+      0% { content: ''; }
+      25% { content: '.'; }
+      50% { content: '..'; }
+      75% { content: '...'; }
+      100% { content: ''; }
+    }
+    
+    #draggable {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    width: 200px; /* Adjust as needed */
+    cursor: grab;
+    z-index: 1000;
+}
+
+.centered-gif {
+    display: block;
+    margin: 0 auto; /* Centers the image */
+    max-width: 80%; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgj_WBDShOO3RU89dX-Z_a5RQh3GogaOT8Zg&s'); /* Replace with your image URL */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center; /* Centers the image */
+}
+.loading-text {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    border: 2px solid white; /* White border */
+    padding: 10px; /* Optional: Add padding for better appearance */
+    border-radius: 5px; /* Optional: Rounded corners */
+    color: black; /* Set text color to black */
+    background-color: white; /* Set background color inside the border to white */
+}
+  </style>
+</head>
+<body>
+  <div class="loading-text">Loading...</div>
+  <img id="draggable" src="https://www.mythic.lat/png/SoloCentral.gif" alt="Solo Central" />
+<script>
+  const img = document.getElementById('draggable');
+  
+  img.onmousedown = function(event) {
+    img.style.cursor = 'grabbing';
+    
+    let shiftX = event.clientX - img.getBoundingClientRect().left;
+    let shiftY = event.clientY - img.getBoundingClientRect().top;
+
+    function moveAt(pageX, pageY) {
+      img.style.left = pageX - shiftX + 'px';
+      img.style.top = pageY - shiftY + 'px';
+    }
+
+    function onMouseMove(event) {
+      moveAt(event.pageX, event.pageY);
+    }
+
+    document.addEventListener('mousemove', onMouseMove);
+
+    img.onmouseup = function() {
+      document.removeEventListener('mousemove', onMouseMove);
+      img.onmouseup = null;
+      img.style.cursor = 'grab';
+    };
+  };
+
+  img.ondragstart = function() {
+    return false; // Prevent default drag behavior
+  };
+</script>
+</body>
+</html>
